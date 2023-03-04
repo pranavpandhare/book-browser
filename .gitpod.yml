@@ -1,7 +1,8 @@
 tasks:
   - before: nvm install
     init: yarn
-    command: yarn start
+    command: yarn start |
+      export HMR_HOST=`gp url 3000`
 
 ports:
   - port: 3000
