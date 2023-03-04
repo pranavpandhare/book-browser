@@ -1,0 +1,14 @@
+tasks:
+  - before: nvm install
+    init: yarn
+    command: yarn start
+
+ports:
+  - port: 3000
+    visibility: public
+    name: book-browser
+    onOpen: open-preview
+
+vscode:
+  extensions:
+    - dbaeumer.vscode-eslint
