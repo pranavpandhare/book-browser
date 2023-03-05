@@ -18,7 +18,7 @@ export function BookCardVertical({ book }: { book: Book }) {
 
   return (
     <>
-      <Card>
+      <Card sx={ { display: 'flex', height: '100%' } }>
         <CardActionArea onClick={ () => handleOpenModal(book.image_url) }>
           <CardMedia
             component='img'
@@ -26,7 +26,7 @@ export function BookCardVertical({ book }: { book: Book }) {
             alt={ book.cover_i }
           />
           <CardContent>
-            <Typography gutterBottom variant='h5' component='div'>
+            <Typography gutterBottom variant='h5' component='div' noWrap>
               { book.title }
             </Typography>
             <Typography variant='body2' color='text.secondary'>
@@ -53,23 +53,23 @@ export function BookCardHorizontal({ book }: { book: Book }) {
       <Card sx={ { display: 'flex' } } onClick={ () => handleOpenModal(book.image_url) }>
         <Box sx={ { display: 'flex', flexDirection: 'column' } }>
           <CardContent sx={ { flex: '1 0 auto' } }>
-            <Typography component="div" variant="h5">
+            <Typography component="div" variant="h5" noWrap>
               { book.title }
             </Typography>
             <Typography variant="subtitle1" color="text.secondary" component="div">
-              { book.author }
+              Author: { book.author }
             </Typography>
             <Typography variant="subtitle1" color="text.secondary" component="div">
-              { book.first_publish_year }
+              First Publish Year: { book.first_publish_year }
             </Typography>
             <Typography variant="subtitle1" color="text.secondary" component="div">
-              { book.isbn }
+              ISBN: { book.isbn }
             </Typography>
           </CardContent>
         </Box>
         <CardMedia
           component="img"
-          sx={ { width: 151 } }
+          sx={ { flex: '1 0 1', width: 200 } }
           image={ book.thumbnail_url }
           alt={ book.cover_i }
         />

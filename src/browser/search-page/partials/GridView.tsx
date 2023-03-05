@@ -10,11 +10,11 @@ interface ComponentProps {
 
 export default function Gridview({ books }: ComponentProps) {
   return (
-    <Card sx={ { minWidth: 'auto', mt: 2 } }>
+    <Card sx={ { minWidth: 'auto', m: 2 } }>
       <CardContent>
-        <Grid container spacing={ { xs: 2, md: 3 } } columns={ { xs: 4, sm: 8, md: 12 } }>
+        <Grid container spacing={2} alignItems='stretch'>
           { books && Array.from(books).map((book, index) => (
-            <Grid xs={ 2 } sm={ 4 } md={ 4 } key={ index }>
+            <Grid xs={12} sm={6} md={4} lg={3} key={ index } sx={ { height: 600 } }>
               <BookCardVertical book={ book } />
             </Grid>
           )) }

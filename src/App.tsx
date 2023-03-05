@@ -11,7 +11,7 @@ const queryClient = new QueryClient();
 export default function App() {
   return (
     <QueryClientProvider client={ queryClient }>
-      <Container component="main" maxWidth="sm">
+      <Container component='main' maxWidth='xl'>
         <Box sx={ { my: 4 } }>
           <SearchPage />
         </Box>

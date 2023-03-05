@@ -3,7 +3,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { useDebounce } from "usehooks-ts";
 import { QueryClient, useQuery } from 'react-query';
 
-import { AppBar, Toolbar, IconButton, Menu, MenuItem, Button, ButtonGroup, Container } from "@mui/material";
+import { AppBar, Toolbar, IconButton, Menu, MenuItem, Button, ButtonGroup, Container, InputAdornment, TextField } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import ViewCompactIcon from '@mui/icons-material/ViewCompact';
@@ -11,7 +11,6 @@ import ViewListIcon from '@mui/icons-material/ViewList';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
-import { Search, SearchIconWrapper, StyledInputBase } from "../styles";
 import Gridview from "./partials/GridView";
 import getBooks from "../utils/ApiCall";
 import ListView from "./partials/ListView";
@@ -33,8 +32,8 @@ export default function SearchPage() {
   useEffect(() => {
     if (data) {
       const queryClient = new QueryClient();
-      queryClient.prefetchQuery(['books', debouncedBookValue, paginationNr, page+1], () =>
-        debouncedBookValue && getBooks(debouncedBookValue, paginationNr, page+1)
+      queryClient.prefetchQuery(['books', debouncedBookValue, paginationNr, page + 1], () =>
+        debouncedBookValue && getBooks(debouncedBookValue, paginationNr, page + 1)
       )
     }
   }, [data, page, debouncedBookValue, paginationNr]);
@@ -63,18 +62,18 @@ export default function SearchPage() {
   const isMenuOpen = Boolean(anchorEl);
   const renderMenu = (
     <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{
+      anchorEl={ anchorEl }
+      anchorOrigin={ {
         vertical: 'top',
         horizontal: 'right',
-      }}
+      } }
       keepMounted
-      transformOrigin={{
+      transformOrigin={ {
         vertical: 'top',
         horizontal: 'right',
-      }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
+      } }
+      open={ isMenuOpen }
+      onClose={ handleMenuClose }
     >
       <MenuItem onClick={ () => handleMenuClose(10) }>10</MenuItem>
       <MenuItem onClick={ () => handleMenuClose(20) }>20</MenuItem>
@@ -91,27 +90,26 @@ export default function SearchPage() {
             edge="start"
             color="inherit"
             aria-label="pages"
-            onClick={handleProfileMenuOpen}
-            sx={{ mr: 2 }}
+            onClick={ handleProfileMenuOpen }
+            sx={ { mr: 2 } }
           >
             <MenuIcon />
           </IconButton>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              value = { book }
+          <TextField
+            id="outlined-start-adornment"
+            sx={{ m: 1, width: '100%' }}
+            placeholder="Search…"
+            value={ book }
               onChange={ handleBookName }
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
-          <ButtonGroup variant="outlined" aria-label="outlined button group" sx={{ ml: 2 }}>
+            InputProps={{
+              startAdornment: <InputAdornment position="start"><SearchIcon /></InputAdornment>,
+            }}
+          />
+          <ButtonGroup variant="outlined" aria-label="outlined button group" sx={ { m: 2 } }>
             <Button onClick={ () => handleViewButton('Grid') }><ViewCompactIcon /></Button>
             <Button onClick={ () => handleViewButton('List') }><ViewListIcon /></Button>
           </ButtonGroup>
-          <ButtonGroup variant="outlined" aria-label="outlined button group" sx={{ ml: 2 }}>
+          <ButtonGroup variant="outlined" aria-label="outlined button group" sx={ { m: 2 } }>
             <Button onClick={ () => handlePageButton(page - 1) }><NavigateBeforeIcon /></Button>
             <Button onClick={ () => handlePageButton(page + 1) }><NavigateNextIcon /></Button>
           </ButtonGroup>
@@ -121,7 +119,7 @@ export default function SearchPage() {
         { view && view === 'Grid' ? <Gridview books={ data } /> : <></> }
         { view && view === 'List' ? <ListView books={ data } /> : <></> }
       </Container>
-      {renderMenu}
+      { renderMenu }
     </>
   );
 }
