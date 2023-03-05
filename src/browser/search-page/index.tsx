@@ -12,7 +12,7 @@ import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 import Gridview from "./partials/GridView";
-import getBooks from "../utils/ApiCall";
+import fetchBooks from "../utils/fetchBooks";
 import ListView from "./partials/ListView";
 
 export default function SearchPage() {
@@ -25,7 +25,7 @@ export default function SearchPage() {
 
   const { data } = useQuery(
     ['books', debouncedBookValue, page, paginationNr],
-    () => debouncedBookValue && getBooks(debouncedBookValue, paginationNr, page),
+    () => debouncedBookValue && fetchBooks(debouncedBookValue, paginationNr, page),
     { keepPreviousData: true, staleTime: 60 * 5000, cacheTime: 60000 }
   )
 
@@ -33,7 +33,7 @@ export default function SearchPage() {
     if (data) {
       const queryClient = new QueryClient();
       queryClient.prefetchQuery(['books', debouncedBookValue, paginationNr, page + 1], () =>
-        debouncedBookValue && getBooks(debouncedBookValue, paginationNr, page + 1)
+        debouncedBookValue && fetchBooks(debouncedBookValue, paginationNr, page + 1)
       )
     }
   }, [data, page, debouncedBookValue, paginationNr]);
