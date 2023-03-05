@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export default async function getBooks(title: string, limit: number, page: number){
+export default async function fetchBooks(title: string, limit: number, page: number){
 
   const { data } = await axios.get('https://openlibrary.org/search.json?title='+ title +'&limit='+ limit +'&page=' + page);
 
